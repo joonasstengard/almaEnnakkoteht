@@ -69,7 +69,7 @@ Lisäsin vielä ylimääräisen ilmoituksen tilanteeseen, jossa käyttäjä yrit
 ```
 
 Yksittäisen asiakkaan tietoja voi hakea getCustomerById metodilla jota voi käyttää tekemällä GET requestin osoitteeseen http://localhost:8080/customers/{customerId}, jossa {customerId} tilalle voi laittaa halutun käyttäjän ID:n. Esimerkiksi:
-http://localhost:8080/customers/1 missä poistetaan asiakas jonka id on 1.
+http://localhost:8080/customers/1 missä haetaan asiakas jonka id on 1.
 
  Käytin tässä ID:tä siksi, että se on ainoa uniikki tietokantataulun sarake asiakkailla ja myös pääavaimen käyttäminen tämän tyylisissä hauissa on ymmärrykseni mukaan aika standardi tapa menetellä. Asiakkaiden ID:n näkee tässä ohjelmassa molempia ylempiä metodeja käyttämällä. Eli lisäsin ilmoituksen ID:stä asiakkaan tallentamisen yhteyteen, ja lisäksi ne on listattuna tuossa getAllCustomers haussa.
 
