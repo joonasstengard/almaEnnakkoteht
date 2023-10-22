@@ -7,7 +7,7 @@ Toteutin ohjelman Java Springillä tehtävänannon mukaisesti, H2 muistinvaraise
 Ohjelma käynnistetään AlmaEnnakkoApplication.java nimisestä luokasta, jossa on ohjelman päämetodi. Esimerkiksi avaamalla luokka IDE ohjelmassa kuten Eclipsessä ja valitsemalla toiminto "run" luokan sisällä. Luokat näkyvät seuraavan kansiorakenteen alla: 
 AlmaEnnakko->src/main/java->com.joonass.ennakkoteht
 
-Ohjelma toimii 8080 portissa localhostissa. Tarkemmat URL-osoitteet rajapinnan käyttämiseen alempana ohjelman rakenteessa.
+Ohjelma toimii 8080 portissa localhostissa. Tarkemmat URL-osoitteet ohjelman käyttämiseen löytyy alempana ohjelman rakenteessa.
 
 # Ohjelman rakenne
 Ohjelmassa on pääluokan lisäksi Customer, CustomerController, CustomerRepository ja SpringDocConfig luokat.
