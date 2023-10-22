@@ -17,9 +17,9 @@ Sarakkeet ovat: id, name, email, website, businessId, streetAddress ja phoneNumb
 
 Id:ssä on Spring Data JPA:n @Id annotaatio, eli se on asiakkaiden käyttämä tietokannan pääavain eli primary key. Spring generoi ID:n automaattisesti kun asiakkaan muut tiedot lisätään tietokantaan. Koska ID on uniikki, käytin sitä CustomerControllerissa halutun asiakkaan löytämiseen ja poistamiseen.
 
-CustomerRepository on JpaRepository rajapinta joka mahdollistaa tietokantatoimintojen suorittamisen asiakkaiden tiedoille, eli sovellukssa käytetyt findById, findAll jne. metodit. Custom hakuja tähän ohjelmaan ei tarvittu ja Repositoryssä ei ole paljoa koodia.
+CustomerRepository on JpaRepository rajapinta, joka mahdollistaa tietokantatoimintojen suorittamisen asiakkaiden tiedoille, eli sovellukssa käytetyt findById, findAll jne. metodit. Custom hakuja tähän ohjelmaan ei tarvittu ja Repositoryssä ei ole paljoa koodia.
 
-CustomerController luokassa on ohjelman GET, POST ja DELETE HTTP metodit. Niistä ensimmäisenä on addCustomer metodi, jota käytetään POST requestilla asiakkaiden lisäämiseen tietokantaan. Lisättävä asiakas täytyy lisätä POST requestin Body-osaan JSON muodossa, esimerkiksi näin:
+CustomerController luokassa on ohjelman GET, POST ja DELETE HTTP metodit. Niistä ensimmäisenä on addCustomer metodi, jota käytetään POST requestilla asiakkaan lisäämiseen tietokantaan. Lisättävä asiakas täytyy lisätä POST requestin Body-osaan JSON muodossa, esimerkiksi näin:
 ```json
 {
   "name": "Matti",
