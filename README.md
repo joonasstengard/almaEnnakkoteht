@@ -1,4 +1,4 @@
-README tiedosto Joonas Stengårdin tekemän Alman ennakkotehtävän käyttämiseen.
+Tekninen kuvaus ja ohjeet Joonas Stengårdin tekemän Alman ennakkotehtävän käyttämiseen.
 
 # Toteutus
 Toteutin ohjelman Java Springillä tehtävänannon mukaisesti, H2 muistinvaraisella tietokannalla. Työkaluna käytin Eclipseä. Käytin englantia muuttujien ja luokkien nimeämiseen sekä käyttäjälle annettaviin ilmoituksiin, koska tehtävänannossa ei ollut puhetta kielestä ja mietin että alan standardina se on ehkä todennäköisemmin teillä käytössä työkielenä ja Kauppalehden API:n tiedot oli myös englanniksi. Kirjoitin myös kattavan suomenkielisen kommentoinnin ohjelmaan.
@@ -19,9 +19,9 @@ Sarakkeet ovat: id, name, email, website, businessId, streetAddress ja phoneNumb
 
 Id:ssä on Spring Data JPA:n @Id annotaatio, eli se on asiakkaiden käyttämä tietokannan pääavain eli primary key. Spring generoi ID:n automaattisesti kun asiakkaan muut tiedot lisätään tietokantaan. Koska ID on uniikki, käytin sitä CustomerControllerissa halutun asiakkaan löytämiseen ja poistamiseen.
 
-CustomerRepository on JpaRepository rajapinta joka mahdollistaa tietokantatoimintojen suorittamisen asiakkaiden tiedoille, eli sovellukssa käytetyt findById, findAll jne. metodit.
+CustomerRepository on JpaRepository rajapinta joka mahdollistaa tietokantatoimintojen suorittamisen asiakkaiden tiedoille, eli sovellukssa käytetyt findById, findAll jne. metodit. Custom hakuja tähän ohjelmaan ei tarvittu ja Repositoryssä ei ole paljoa koodia.
 
-CustomerController luokassa on addCustomer metodi, jota kautta voi tehdä POST requesteja asiakkaiden lisäämiseen tietokantaan. Lisättävät asiakkaat täytyy lisätä POST requestin Body-osaan JSON muodossa, esimerkiksi näin:
+CustomerController luokassa on ohjelman GET, POST ja DELETE HTTP metodit. Niistä ensimmäisenä on addCustomer metodi, jota käytetään POST requestilla asiakkaiden lisäämiseen tietokantaan. Lisättävä asiakas täytyy lisätä POST requestin Body-osaan JSON muodossa, esimerkiksi näin:
 ```json
 {
   "name": "Matti",
@@ -32,7 +32,7 @@ CustomerController luokassa on addCustomer metodi, jota kautta voi tehdä POST r
 Metodi käyttää /customers mappingia, eli POST requesti tehdään seuraavaan osoitteeseen:
 http://localhost:8080/customers/
 
-Nimi on tehtävänannon mukaisesti pakollinen kenttä asiakkaan tietoja syöttäessä. Se tarkastetaan seuraavalla koodinpätkällä addCustomer metodissa:
+Nimi eli "name" on tehtävänannon mukaisesti pakollinen arvo asiakkaan tietoja syöttäessä. Se tarkastetaan seuraavalla koodinpätkällä addCustomer metodissa:
 
 ```java
 //Tarkastetaan ensin onko asiakkaan nimeä syötetty
@@ -42,7 +42,7 @@ Nimi on tehtävänannon mukaisesti pakollinen kenttä asiakkaan tietoja syöttä
     	}
 ```
 
-Sähköposti ja verkkosivut ovat valinnaisia, ne jäävät nulliksi jos niitä ei syötetä. Jos sähköposti annettiin, siitä tarkistetaan oliko se oikeassa muodossa tekemällä siihen regex vertaus:
+Sähköposti eli "email" ja verkkosivut eli "website" ovat valinnaisia, ne jäävät nulliksi jos niitä ei syötetä. Jos sähköposti annettiin, siitä tarkistetaan oliko se oikeassa muodossa tekemällä siihen regex vertaus:
 
 ```java
     	if(customer.getEmail() != null) {
@@ -71,9 +71,9 @@ Lisäsin vielä ylimääräisen ilmoituksen tilanteeseen, jossa käyttäjä yrit
 Yksittäisen asiakkaan tietoja voi hakea getCustomerById metodilla jota voi käyttää tekemällä GET requestin osoitteeseen http://localhost:8080/customers/{customerId}, jossa {customerId} tilalle voi laittaa halutun käyttäjän ID:n. Esimerkiksi:
 http://localhost:8080/customers/1 missä haetaan asiakas jonka id on 1.
 
- Käytin tässä ID:tä siksi, että se on ainoa uniikki tietokantataulun sarake asiakkailla ja myös pääavaimen käyttäminen tämän tyylisissä hauissa on ymmärrykseni mukaan aika standardi tapa menetellä. Asiakkaiden ID:n näkee tässä ohjelmassa molempia ylempiä metodeja käyttämällä. Eli lisäsin ilmoituksen ID:stä asiakkaan tallentamisen yhteyteen, ja lisäksi ne on listattuna tuossa getAllCustomers haussa.
+Yksittäisen käyttäjän haussa käytetään ID:tä siksi, että se on ainoa uniikki tietokantataulun sarake asiakkailla. Asiakkaiden ID:n näkee tässä ohjelmassa molempia ylempiä metodeja käyttämällä. Eli lisäsin ilmoituksen ID:stä asiakkaan tallentamisen yhteyteen, ja lisäksi ne on listattuna tuossa getAllCustomers haussa.
 
-Asiakkaan tiedot voi poistaa deleteCustomer metodilla, joka toimii samassa osoitteessa kuin ylempi mutta DELETE requestilla. Rakenteeltaan deleteCustomer metodi on melkein sama kuin getCustomerById, sinne on vaan lisätty asiakkaan poistamiseen seuraava koodi:
+Asiakkaan tiedot voi poistaa deleteCustomer metodilla, joka toimii samassa osoitteessa kuin ylempi, mutta DELETE requestilla. Rakenteeltaan deleteCustomer metodi on melkein sama kuin getCustomerById, sinne on vaan lisätty asiakkaan poistamiseen seuraava koodi:
 
 ```java
 if (customer.isPresent()) {
@@ -83,6 +83,8 @@ if (customer.isPresent()) {
         }
 ```
 
+Eli DELETE requesti tehdään esimerkiksi seuraavaan osoitteeseen: http://localhost:8080/customers/3 missä numero 3 tarkoittaa poistettavan asiakkaan ID arvoa.
+
 Molemmissa ylemmissä metodeissa on lisäksi virheilmoitukset jos haettua asiakasta ei löydy tietokannasta.
 
 Viimeisenä luokkana ohjelmassa on vielä SpringDocConfig, jossa on konfiguraatiot OpenAPI kuvauksen generoimiseen, siitä lisää alempana OpenAPI kuvaus-kappaleessa.
@@ -91,7 +93,7 @@ Viimeisenä luokkana ohjelmassa on vielä SpringDocConfig, jossa on konfiguraati
 
 Ohjelmassa on useita erilaisia viestejä mitä se voi antaa eri virheidenkäsittelytilanteissa: jos annettu sähköpostiosoite on väärässä muodossa, jos nimeä ei ole annettu, jos tietokanta on tyhjä, jos GET requesti Kauppalehden API:in epäonnistui tai jos sen käsittelyssä oli virhe, ja jos haettavaa tai poistettavaa asiakasta ei löydy. 
 
-Pohdin asiaa, että onko se virhetilanne jos käyttäjä syöttää asiakkaan yrityksen osoitteen tai puhelinnumeron POST requestissa suoraan. Niitähän ei siinä mielessä kuuluisi syöttää itse, että ohjelma hakee ne Kauppalehden API:sta jos y-tunnus on syötetty. Kallistuin ehkä hieman siihen että se ei ole virhetilanne, mutta tehtävänanto jätti tämän avoimeksi niin "korjasin sen" potentiaalisena virhetilanteena, että pääsin koodaamaan enemmän. Eli jos käyttäjä yrittää syöttää jomman kumman arvon manuaalisesti, ohjelma vaihtaa molempien niiden arvoksi null. Jos lisäksi y-tunnus on annettu, ne haetaan sitä kautta, jos ei ole y-tunnusta, ne jää nulliksi.
+Pohdin asiaa, että onko se virhetilanne jos käyttäjä syöttää asiakkaan yrityksen osoitteen tai puhelinnumeron POST requestissa suoraan. Niitähän ei siinä mielessä kuuluisi syöttää itse, että ohjelma hakee ne Kauppalehden API:sta jos y-tunnus on syötetty. Kallistuin hieman siihen että se ei ole virhetilanne, mutta tehtävänanto jätti tämän avoimeksi niin "korjasin sen" että pääsin koodaamaan siihen tarkastuksen. Eli jos käyttäjä yrittää syöttää jomman kumman arvon manuaalisesti, ohjelma vaihtaa molempien niiden arvoksi null. Jos lisäksi y-tunnus on annettu, ne haetaan sitä kautta, jos ei ole y-tunnusta, ne jää nulliksi.
 
 # OpenAPI kuvaus
 OpenAPI kuvauksen tekemiseen käytin springdoc-openapi kirjastoa. Ohjelman ollessa käynnissä, kuvauksen näkee seuraavasta URL osoitteesta Swagger UI:lla: 
