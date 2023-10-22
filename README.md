@@ -4,10 +4,8 @@ Tekninen kuvaus ja ohjeet Joonas Stengårdin tekemän Alman ennakkotehtävän k�
 Toteutin ohjelman Java Springillä tehtävänannon mukaisesti, H2 muistinvaraisella tietokannalla. Työkaluna käytin Eclipseä. Käytin englantia muuttujien ja luokkien nimeämiseen sekä käyttäjälle annettaviin ilmoituksiin, koska tehtävänannossa ei ollut puhetta kielestä ja mietin että alan standardina se on ehkä todennäköisemmin teillä käytössä työkielenä ja Kauppalehden API:n tiedot oli myös englanniksi. Kirjoitin myös kattavan suomenkielisen kommentoinnin ohjelmaan.
 
 # Ohjeet käynnistämiseen
-Ohjelma käynnistetään AlmaEnnakkoApplication.java nimisestä luokasta, jossa on ohjelman päämetodi. Esimerkiksi avaamalla luokka IDE ohjelmassa kuten Eclipsessä ja valitsemalla toiminto "run" luokan sisällä. Luokat näkyvät IDE:stä riippuen joko seuraavan kansiorakenteen alla: ->AlmaEnnakko->src->main->java->com->joonass->ennakkoteht
-tai
-->AlmaEnnakko->src/main/java->com.joonass.ennakkoteht
-Jotkut IDE:t näyttävät noi packaget kansioina ja src/main/java erikseen tai yhtenä kansiona.
+Ohjelma käynnistetään AlmaEnnakkoApplication.java nimisestä luokasta, jossa on ohjelman päämetodi. Esimerkiksi avaamalla luokka IDE ohjelmassa kuten Eclipsessä ja valitsemalla toiminto "run" luokan sisällä. Luokat näkyvät seuraavan kansiorakenteen alla: 
+AlmaEnnakko->src/main/java->com.joonass.ennakkoteht
 
 Ohjelma toimii 8080 portissa localhostissa. Tarkemmat URL-osoitteet rajapinnan käyttämiseen alempana ohjelman rakenteessa.
 
